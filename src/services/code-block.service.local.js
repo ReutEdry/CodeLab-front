@@ -1,12 +1,14 @@
-
+import axios from 'axios'
 import { storageService } from './async-storage.service'
 import { utilService } from './util.service'
 
 const STORAGE_KEY = 'codeBlockDB'
 _createCodeBlock()
+
 export const codeBlockService = {
     query,
     getById,
+    executeCode
 }
 
 
@@ -17,6 +19,28 @@ async function query() {
 
 function getById(codeBlockId) {
     return storageService.get(STORAGE_KEY, codeBlockId)
+}
+
+
+async function executeCode(outputCode) {
+
+    // try {
+    //     const response = await axios.get(" https://emkc.org/api/v2/piston/runtimes");
+    //     console.log(response.data); // Log the data property of the response
+    // } catch (error) {
+    //     console.error("Error fetching data:", error.message); // Handle errors
+    // }
+
+    const response = await axios.post("https://emkc.org/api/v2/piston/execute", {
+        "language": "js",
+        "version": "18.15.0",
+        "files": [
+            {
+                "content": outputCode
+            }
+        ]
+    })
+    return response.data.run.output
 }
 
 function _createCodeBlock() {

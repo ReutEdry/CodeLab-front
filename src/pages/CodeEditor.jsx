@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
 import { codeBlockService } from "../services/code-block.service.local";
 import Editor, { loader } from '@monaco-editor/react'
+import { Output } from "../cmps/Output";
 
 export function CodeEditor() {
 
@@ -46,20 +47,29 @@ export function CodeEditor() {
         <section className="editor-container">
             <div className="editor-header">
                 <h2>{block.subject}</h2>
-                <p>Role: Mentor</p>
+                <p>Role: <span>Mentor</span></p>
+                <p>Currently in the room: <span>0</span> </p>
             </div>
             <div>
-                <Editor
-                    theme="vs-dark"
-                    height='90vh'
-                    width='70vw'
-                    defaultLanguage="javascript"
-                    defaultValue="// some comment"
-                    onChange={handleEditorChange}
-                    value={blockValue}
-                    onMount={onMount}
-                // onValidate={handleEditorValidation}
-                />
+
+                <div>
+
+                    <Editor
+                        theme="vs-dark"
+                        height='60vh'
+                        width='70vw'
+                        defaultLanguage="javascript"
+                        defaultValue="// some comment"
+                        onChange={handleEditorChange}
+                        value={blockValue}
+                        onMount={onMount}
+                    // onValidate={handleEditorValidation}
+                    />
+                </div>
+
+                <div>
+                    <Output output={blockValue} />
+                </div>
 
             </div>
         </section>
