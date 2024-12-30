@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { codeBlockService } from "../services/code-block.service.local"
 import { CodeBlockList } from "../cmps/CodeBlockList"
+import { svgs } from "../cmps/Svg"
 
 export function Lobby() {
 
@@ -23,9 +24,15 @@ export function Lobby() {
 
     if (!codeBlocks || !codeBlocks.length) return <div>loading</div>
     return (
-        <section>
-            <h1>Choose code block</h1>
-            <CodeBlockList codeBlocks={codeBlocks} />
+        <section className="lobby-container">
+            <header className="flex align-center ">
+                <span>{svgs.lab}</span>
+                <h1>Tom's Lab</h1>
+            </header>
+            <section className="blocks-container flex column">
+                <h2>Choose code block and let's code together!</h2>
+                <CodeBlockList codeBlocks={codeBlocks} />
+            </section>
         </section >
     )
 }

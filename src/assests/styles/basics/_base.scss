@@ -3,9 +3,21 @@
 }
 
 body {
-    background-color: #f6f8fc;
     margin: 0;
+    background-color: #1d1e22;
+    color: white;
+    font-family: mono-regular;
+
 }
+
+h1,
+h2,
+h3 {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
 
 button {
     font-family: inherit;

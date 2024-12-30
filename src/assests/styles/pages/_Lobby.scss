@@ -1,0 +1,55 @@
+.lobby-container {
+
+    margin-inline: 8vw;
+
+    header {
+
+        gap: 1em;
+        padding: 1em;
+        background-color: hsl(222.86deg 13.73% 20%);
+
+        h1 {
+            font-size: 2.3rem;
+            font-weight: bold;
+        }
+    }
+
+    .blocks-container {
+
+        // width: fit-content;
+        margin: auto;
+
+        h2 {
+            margin-block: 30px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        ul {
+            margin: auto;
+
+            li {
+                padding: 0.7em;
+                border-radius: 3px;
+                margin-block-end: 20px;
+
+                h3 {
+                    font-size: 1.5rem;
+                    color: white;
+                }
+
+                &:hover {
+                    background-color: #F44336;
+                }
+
+
+                // &:not(:last-of-type) {
+                //     color: pink;
+                // }
+            }
+
+
+        }
+    }
+}
