@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
 import { Lobby } from './pages/Lobby'
-import { CodeBlockIndex } from './pages/CodeBlockIndex'
+import { CodeEditor } from './pages/CodeEditor'
 
 export function RootCmp() {
     return (
@@ -9,7 +9,7 @@ export function RootCmp() {
             <main>
                 <Routes>
                     <Route path="/" element={<Lobby />} />
-                    <Route path="/blockCode/:blockId" element={<CodeBlockIndex />} />
+                    <Route path="/editor/:blockId" element={<CodeEditor />} />
                 </Routes>
             </main>
         </div>

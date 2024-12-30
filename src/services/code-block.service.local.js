@@ -12,8 +12,6 @@ export const codeBlockService = {
 
 async function query() {
     var codeBlocks = await storageService.query(STORAGE_KEY)
-    console.log(codeBlocks);
-
     return codeBlocks
 }
 

@@ -1,7 +1,6 @@
-export function CodeBlockPreview() {
+export function CodeBlockPreview({ block }) {
+
     return (
-        <section>
-            <h2>CodeBlockPreview</h2>
-        </section >
+        <h2>{block.subject}</h2>
     )
 }
