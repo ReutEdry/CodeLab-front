@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { CodeBlockPreview } from "./CodeBlockPreview";
 
 export function CodeBlockList({ codeBlocks }) {
-    console.log(codeBlocks);
 
     return (
 

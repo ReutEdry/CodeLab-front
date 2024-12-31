@@ -8,7 +8,9 @@ export function CodeEditor() {
 
     const [block, setBlock] = useState(null)
     const [blockValue, setBlockValue] = useState('')
-    let editorRef = useRef().current
+    const [blockResult, setBlockResult] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    // let editorRef = useRef().current
     const { blockId } = useParams()
 
     useEffect(() => {
@@ -19,6 +21,7 @@ export function CodeEditor() {
         try {
             const block = await codeBlockService.getById(blockId)
             setBlock(block)
+            setBlockValue(block.quest)
         } catch (error) {
             console.log('Could not load code block', error);
 
@@ -26,20 +29,37 @@ export function CodeEditor() {
     }
 
     function handleEditorChange(value, event) {
-        // here is the current value
-        // console.log('handleEditorChange', value);
         setBlockValue(value)
-
     }
 
     function onMount(editor) {
-        editorRef = editor
-        editorRef.focus()
+        // editorRef = editor
+        // editorRef.focus()
+        editor.focus()
     }
 
-    function handleEditorValidation(markers) {
-        // model markers
-        // markers.forEach(marker => console.log('onValidate:', marker.message));
+    async function runCode() {
+        try {
+            setIsLoading(true)
+            const result = await codeBlockService.executeCode(blockValue)
+            setBlockResult(result)
+        } catch (error) {
+            console.log('Could not execute the code =>', error);
+        } finally {
+            setIsLoading(false)
+        }
+
+    }
+    function clearEditor() {
+
+        // monaco.editor.getModel().setValue(`/*\n${block.quest
+        //     .split('\n')
+        //     .map(line => line.trimStart())
+        //     .join('\n')}\n*/`)
+        monaco.editor.getModels().forEach(model => model.setValue(`/*\n${block.quest
+            .split('\n')
+            .map(line => line.trimStart())
+            .join('\n')}\n*/`))
     }
 
     if (!block) return <div>loading</div>
@@ -50,25 +70,30 @@ export function CodeEditor() {
                 <p>Role: <span>Mentor</span></p>
                 <p>Currently in the room: <span>0</span> </p>
             </div>
-            <div>
+            <div className="flex">
+                <button onClick={runCode}>Run Code:</button>
+                <button onClick={clearEditor}>Clear Editor</button>
+
 
                 <div>
-
                     <Editor
                         theme="vs-dark"
-                        height='60vh'
-                        width='70vw'
+                        height='80vh'
+                        width='60vw'
                         defaultLanguage="javascript"
-                        defaultValue="// some comment"
+                        // defaultValue={`// ${blockValue}`}
                         onChange={handleEditorChange}
-                        value={blockValue}
+                        value={`/*\n${block.quest
+                            .split('\n')
+                            .map(line => line.trimStart())
+                            .join('\n')}\n*/`}
                         onMount={onMount}
-                    // onValidate={handleEditorValidation}
                     />
                 </div>
 
-                <div>
-                    <Output output={blockValue} />
+                <div >
+                    <p>Output</p>
+                    <Output solution={block.solution} output={blockResult} isLoading={isLoading} />
                 </div>
 
             </div>
