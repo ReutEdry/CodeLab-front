@@ -10,7 +10,7 @@ export function CodeEditor() {
     const [blockValue, setBlockValue] = useState('')
     const [blockResult, setBlockResult] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    // let editorRef = useRef().current
+    let editorRef = useRef()
     const { blockId } = useParams()
 
     useEffect(() => {
@@ -21,21 +21,16 @@ export function CodeEditor() {
         try {
             const block = await codeBlockService.getById(blockId)
             setBlock(block)
-            setBlockValue(block.quest)
+            // setBlockValue(block.quest)
         } catch (error) {
             console.log('Could not load code block', error);
 
         }
     }
 
-    function handleEditorChange(value, event) {
-        setBlockValue(value)
-    }
-
     function onMount(editor) {
-        // editorRef = editor
-        // editorRef.focus()
-        editor.focus()
+        editorRef.current = editor
+        editorRef.current.focus()
     }
 
     async function runCode() {
@@ -50,49 +45,56 @@ export function CodeEditor() {
         }
 
     }
-    function clearEditor() {
 
-        // monaco.editor.getModel().setValue(`/*\n${block.quest
-        //     .split('\n')
-        //     .map(line => line.trimStart())
-        //     .join('\n')}\n*/`)
-        monaco.editor.getModels().forEach(model => model.setValue(`/*\n${block.quest
+    function clearEditor() {
+        editorRef.current.setValue(`/*\n${block.quest
             .split('\n')
             .map(line => line.trimStart())
-            .join('\n')}\n*/`))
+            .join('\n')}\n*/`)
+        // monaco.editor.getModels().forEach(model => model.setValue(`/*\n${block.quest
+        //     .split('\n')
+        //     .map(line => line.trimStart())
+        //     .join('\n')}\n*/`))
     }
 
     if (!block) return <div>loading</div>
     return (
         <section className="editor-container">
-            <div className="editor-header">
+
+            <div className="editor-header flex align-center">
                 <h2>{block.subject}</h2>
-                <p>Role: <span>Mentor</span></p>
-                <p>Currently in the room: <span>0</span> </p>
+                <div className="">
+                    <p>Role: <span>Mentor</span></p>
+                    <p>Currently in the room: <span>0</span> </p>
+                </div>
             </div>
-            <div className="flex">
-                <button onClick={runCode}>Run Code:</button>
-                <button onClick={clearEditor}>Clear Editor</button>
 
+            <div className="editor-btn-aciton flex">
+                <button className="clear" onClick={clearEditor}>Clear Editor</button>
+                <button className="run" onClick={runCode}>Run Code:</button>
+            </div>
 
-                <div>
+            <div className="editor-display flex">
+                <div className="editor-box">
                     <Editor
                         theme="vs-dark"
-                        height='80vh'
+                        height='70vh'
                         width='60vw'
+                        fontSize='20px'
                         defaultLanguage="javascript"
-                        // defaultValue={`// ${blockValue}`}
-                        onChange={handleEditorChange}
+                        onChange={(value) => setBlockValue(value)}
                         value={`/*\n${block.quest
                             .split('\n')
                             .map(line => line.trimStart())
                             .join('\n')}\n*/`}
                         onMount={onMount}
+                        options={{
+                            fontSize: 22
+                        }}
                     />
                 </div>
 
-                <div >
-                    <p>Output</p>
+                <div className="output-box">
                     <Output solution={block.solution} output={blockResult} isLoading={isLoading} />
                 </div>
 

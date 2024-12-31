@@ -1,17 +1,15 @@
 export function Output({ solution, output, isLoading }) {
-
     const isCorrectAnswer = solution.trim() === output?.trim()
-    // const isCorrectAnswer = solution === output
 
     return (
         <section>
             {isLoading ? (
-                <span class="loader"></span>
+                <span className="loader"></span>
             ) : (
                 <div>
-                    {output ? output : 'Click run code button to see the result 😊'}
+                    {output ? (<p className="result-msg">{output}</p>) : (<p className="start-msg">Click run code button to see the result 😊</p>)}
                     {output && (
-                        <p>{isCorrectAnswer ? "THAT'S CORRECT!!!!! 🤩 🤩" : "TRY AGAIN... 😰 😰"}</p>
+                        <p className={`msg ${isCorrectAnswer ? 'sucess' : 'failed'}`}>{isCorrectAnswer ? "THAT'S CORRECT!!!!! 🤩 🤩" : "TRY AGAIN... 😰 😰"}</p>
                     )}
                 </div>
             )}

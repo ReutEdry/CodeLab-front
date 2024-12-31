@@ -1,0 +1,94 @@
+.editor-container {
+    padding: 1.5em;
+    padding-inline: 2rem;
+
+    .editor-header {
+        margin-block-end: 2em;
+        // padding-inline: 1em;
+        justify-content: space-between;
+
+        h2 {
+            // font-family: mono-bold;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+
+        div {
+            gap: 20px;
+
+            p {
+
+                font-size: 1.2rem;
+
+                span {
+                    color: #F44336;
+                }
+            }
+        }
+    }
+
+    .editor-btn-aciton {
+        margin-block-end: 2rem;
+        justify-content: space-between;
+
+        button {
+            padding: 10px 20px;
+            border: 2px solid #38393e;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: border 0.4s;
+
+            &.clear {
+
+                &:hover {
+                    border-color: #a2a5ae;
+                }
+            }
+
+            &.run {
+
+                &:hover {
+                    border-color: #F44336;
+                }
+            }
+
+
+        }
+    }
+
+    .editor-display {
+
+        gap: 30px;
+
+        .output-box {
+            position: relative;
+            width: 40vw;
+            padding: 15px;
+            border: 2px solid #38393e;
+
+            .start-msg {
+                font-size: 1.5rem;
+                color: #a8aab3;
+                font-weight: 500;
+            }
+
+            .msg {
+                font-size: 1.5rem;
+                margin-block-start: 20px;
+                font-weight: bold;
+
+                &.sucess {
+                    color: #90df88;
+                }
+
+                &.failed {
+                    color: #ea5d47;
+                }
+            }
+        }
+    }
+}
