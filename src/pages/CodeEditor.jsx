@@ -119,7 +119,7 @@ export function CodeEditor() {
     }
 
 
-    if (!block) return <div>loading</div>
+    if (!block) return <div className="loader page-loader"></div>
     return (
         <section className="editor-container">
 

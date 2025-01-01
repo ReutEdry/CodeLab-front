@@ -4,7 +4,7 @@ export function Output({ solution, output, isLoading }) {
     return (
         <section>
             {isLoading ? (
-                <span className="loader"></span>
+                <span className="loader output-loading"></span>
             ) : (
                 <div>
                     {output ? (<p className="result-msg">{output}</p>) : (<p className="start-msg">Click run code button to see the result 😊</p>)}

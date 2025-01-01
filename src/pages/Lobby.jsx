@@ -23,7 +23,7 @@ export function Lobby() {
         }
     }
 
-    if (!codeBlocks || !codeBlocks.length) return <div>loading</div>
+    if (!codeBlocks || !codeBlocks.length) return <div className="loader page-loader"></div>
     return (
         <section className="lobby-container">
             <header className="flex align-center ">
