@@ -24,7 +24,7 @@ This application enables seamless collaboration between users in real-time. Ment
   * git clone https://github.com/ReutEdry/CodeLab-frontend.git
   * cd CodeLab-frontend
 2. Install dependencies and start the client:
-   * npm install
-   * npm run dev
+  * npm install
+  * npm run dev
 
 Thank you for checking out this project! 😊
