@@ -1,9 +1,7 @@
 .lobby-container {
-
     margin-inline: 8vw;
 
     header {
-
         gap: 1em;
         padding: 1em;
         background-color: hsl(222.86deg 13.73% 20%);
@@ -15,8 +13,6 @@
     }
 
     .blocks-container {
-
-        // width: fit-content;
         margin: auto;
 
         h2 {
@@ -42,14 +38,7 @@
                 &:hover {
                     background-color: #F44336;
                 }
-
-
-                // &:not(:last-of-type) {
-                //     color: pink;
-                // }
             }
-
-
         }
     }
 }

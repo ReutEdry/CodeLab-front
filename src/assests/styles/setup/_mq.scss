@@ -164,7 +164,7 @@
     }
 }
 
-@media (width < 580px) {
+@media (width < 720px) {
     .lobby-container {
         margin-inline: 0;
 
@@ -199,17 +199,6 @@
                 }
             }
         }
-
-        // .editor-btn-aciton {
-        //     justify-content: flex-start;
-        //     gap: 15px;
-        //     margin-block-end: 0.8rem;
-
-        //     button {
-        //         padding: 5px 10px;
-        //         font-size: 0.9rem;
-        //     }
-        // }
 
         .editor-display {
             flex-direction: column;

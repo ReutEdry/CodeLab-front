@@ -15,7 +15,6 @@ export function Lobby() {
     async function loadCodeBlocks() {
         try {
             const codeBlocks = await codeBlockService.query()
-            // const codeBlocks = await codeBlockService.query()
             setCodeBlocks(codeBlocks)
         } catch (error) {
             console.log('Can not load code blocks', error);

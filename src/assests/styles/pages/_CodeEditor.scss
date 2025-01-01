@@ -4,18 +4,15 @@
 
     .editor-header {
         margin-block-end: 2em;
-        // padding-inline: 1em;
         justify-content: space-between;
 
         h2 {
-            // font-family: mono-bold;
             font-weight: 700;
             font-size: 2.2rem;
         }
 
         div {
             p {
-
                 font-size: 1.2rem;
 
                 span {
@@ -28,6 +25,10 @@
     .editor-btn-aciton {
         margin-block-end: 2rem;
         justify-content: space-between;
+
+        .reset-btn {
+            gap: 15px;
+        }
 
         button {
             padding: 10px 20px;
@@ -53,8 +54,6 @@
                     border-color: #F44336;
                 }
             }
-
-
         }
     }
 
