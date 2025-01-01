@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
 import { codeBlockService } from "../services/code-block.service";
-import Editor, { loader } from '@monaco-editor/react'
+import Editor from '@monaco-editor/react'
 import { Output } from "../cmps/Output";
+import { SOCKET_EMIT_LEAVE_BLOCK, SOCKET_EMIT_SET_BLOCK, SOCKET_EVENT_IS_MENTOR, SOCKET_EVENT_USERS_COUNT, socketService } from "../services/socket-service";
 
 export function CodeEditor() {
 
@@ -10,11 +11,43 @@ export function CodeEditor() {
     const [blockValue, setBlockValue] = useState('')
     const [blockResult, setBlockResult] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+
+    // states for sockets info
+    const [isMentor, setIsMentor] = useState(false)
+    const [connectedUsersCount, setConnectedUsersCount] = useState(false)
+
     let editorRef = useRef()
     const { blockId } = useParams()
 
     useEffect(() => {
+        if (!blockId) return
         loadBlock()
+
+        // connect to socket here - evrytime i enetr a code block room
+        socketService.setup()
+
+        // assign to a specific block
+        socketService.emit(SOCKET_EMIT_SET_BLOCK, blockId)
+
+        // getting uses connected count
+        socketService.on(SOCKET_EVENT_USERS_COUNT, usersCount => {
+            setConnectedUsersCount(usersCount)
+        })
+
+        // is Mentor? 
+        socketService.on(SOCKET_EVENT_IS_MENTOR, isMentor => {
+            setIsMentor(isMentor)
+        })
+
+        return () => {
+            socketService.emit(SOCKET_EMIT_LEAVE_BLOCK, blockId)
+
+            socketService.off(SOCKET_EVENT_USERS_COUNT)
+            socketService.off(SOCKET_EVENT_IS_MENTOR)
+
+            socketService.terminate()
+        }
+
     }, [blockId])
 
     async function loadBlock() {
@@ -64,8 +97,8 @@ export function CodeEditor() {
             <div className="editor-header flex align-center">
                 <h2>{block.subject}</h2>
                 <div className="">
-                    <p>Role: <span>Mentor</span></p>
-                    <p>Currently in the room: <span>0</span> </p>
+                    <p>Role: <span>{isMentor ? 'Mentor' : 'Student'}</span></p>
+                    <p>Currently in the room: <span>{connectedUsersCount}</span> </p>
                 </div>
             </div>
 
