@@ -1,34 +1,22 @@
-Code Blocks & Preview Component
+# Code Blocks & Preview Component
 
-Overview
+  # Overview
 
-This application enables seamless collaboration between users in real-time. Mentors can monitor and assist students as they write code, providing instant feedback and guidance. Using web sockets and a live code editor, the app creates an interactive and engaging learning environment for both mentors and students.
+This application enables seamless collaboration between users in real-time. Mentors can monitor students as they write code. Using web sockets and a live code editor, the app creates an interactive and engaging learning environment for both mentors and students.
 
-Features
+# Features
 
-Real-Time Collaboration: Instantly reflects changes in the editor.
+* Real-Time Collaboration: Instantly reflects changes in the editor.
+* Role Assignment: Supports mentor and student roles for collaborative coding.
+* Code Blocks Management: Manage and edit multiple code blocks efficiently.
+* Live Code Execution: Executes code snippets directly in the browser using the Piston API.
+* Dynamic Editor: Powered by Monaco Editor for a robust coding interface.
+* Responsive Design: Optimized for use on various devices.
 
-Role Assignment: Supports mentor and student roles for collaborative coding.
+# Tech Stack
 
-Code Blocks Management: Manage and edit multiple code blocks efficiently.
-
-Live Code Execution: Executes code snippets directly in the browser using the Piston API.
-
-Dynamic Editor: Powered by Monaco Editor for a robust coding interface.
-
-Responsive Design: Optimized for use on various devices.
-
-Tech Stack
-
-Frontend: React.js
-
-Editor: Monaco Editor
-
-API: Piston API (integrated on the frontend)
-
-Styling: CSS/SCSS
-
-Deployment: [Specify your deployment platform, e.g., Vercel, Netlify]
+* Frontend: React, Monaco Editor, Piston API, Socket.io
+* Backend: Node.js, Express, Socket.io, MongoDB
 
 Installation
 
