@@ -14,8 +14,6 @@
         }
 
         div {
-            gap: 20px;
-
             p {
 
                 font-size: 1.2rem;
@@ -64,20 +62,33 @@
 
         gap: 30px;
 
+        .editor-box {
+            height: 70vh;
+            width: 60vw;
+        }
+
         .output-box {
+            overflow-x: auto;
+            overflow-y: auto;
             position: relative;
             width: 40vw;
             padding: 15px;
             border: 2px solid #38393e;
 
             .start-msg {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
+                color: #a8aab3;
+                font-weight: 500;
+            }
+
+            .result-msg {
+                font-size: 1.2rem;
                 color: #a8aab3;
                 font-weight: 500;
             }
 
             .msg {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
                 margin-block-start: 20px;
                 font-weight: bold;
 

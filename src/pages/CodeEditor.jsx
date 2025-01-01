@@ -140,9 +140,9 @@ export function CodeEditor() {
                 <div className="editor-box">
                     <Editor
                         theme="vs-dark"
-                        height='70vh'
-                        width='60vw'
-                        fontSize='20px'
+                        // height='70vh'
+                        // width='60vw'
+                        fontSize='18px'
                         defaultLanguage="javascript"
                         defaultValue={`/*\n${block.quest
                             .split('\n')
@@ -152,7 +152,7 @@ export function CodeEditor() {
                         value={blockValue}
                         onMount={onMount}
                         options={{
-                            fontSize: 22,
+                            fontSize: 16,
                             readOnly: isMentor
                         }}
                     />
@@ -163,6 +163,7 @@ export function CodeEditor() {
                 </div>
 
             </div>
+
         </section>
     )
 }
