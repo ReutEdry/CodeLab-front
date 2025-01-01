@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { codeBlockService } from "../services/code-block.service";
 import Editor from '@monaco-editor/react'
 import { Output } from "../cmps/Output";
-import { SOCKET_EMIT_LEAVE_BLOCK, SOCKET_EMIT_SET_BLOCK, SOCKET_EVENT_IS_MENTOR, SOCKET_EVENT_USERS_COUNT, socketService } from "../services/socket-service";
+import { SOCKET_EMIT_LEAVE_BLOCK, SOCKET_EMIT_SET_BLOCK, SOCKET_EVENT_IS_MENTOR, SOCKET_EVENT_MENTOR_LEAVES, SOCKET_EVENT_USERS_COUNT, socketService } from "../services/socket-service";
 
 export function CodeEditor() {
 
@@ -18,6 +18,7 @@ export function CodeEditor() {
 
     let editorRef = useRef()
     const { blockId } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!blockId) return
@@ -39,11 +40,21 @@ export function CodeEditor() {
             setIsMentor(isMentor)
         })
 
+        // if mentor leaves
+        socketService.on(SOCKET_EVENT_MENTOR_LEAVES, msg => {
+            alert(msg)
+            navigate('/')
+        })
+
+        // updated code
+
+
         return () => {
             socketService.emit(SOCKET_EMIT_LEAVE_BLOCK, blockId)
 
             socketService.off(SOCKET_EVENT_USERS_COUNT)
             socketService.off(SOCKET_EVENT_IS_MENTOR)
+            socketService.off(SOCKET_EVENT_MENTOR_LEAVES)
 
             socketService.terminate()
         }
@@ -59,6 +70,11 @@ export function CodeEditor() {
             console.log('Could not load code block', error);
 
         }
+    }
+
+    function onHandleEditorChange(value) {
+        if (isMentor) return
+        setBlockValue(value)
     }
 
     function onMount(editor) {
@@ -115,14 +131,15 @@ export function CodeEditor() {
                         width='60vw'
                         fontSize='20px'
                         defaultLanguage="javascript"
-                        onChange={(value) => setBlockValue(value)}
+                        onChange={onHandleEditorChange}
                         value={`/*\n${block.quest
                             .split('\n')
                             .map(line => line.trimStart())
                             .join('\n')}\n*/`}
                         onMount={onMount}
                         options={{
-                            fontSize: 22
+                            fontSize: 22,
+                            readOnly: isMentor
                         }}
                     />
                 </div>

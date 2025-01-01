@@ -8,6 +8,7 @@ export const SOCKET_EVENT_ADD_CODE = 'code-block-add'
 export const SOCKET_EMIT_WRITE_CODE = 'code-block-write'
 
 export const SOCKET_EMIT_LEAVE_BLOCK = 'leave-block'
+export const SOCKET_EVENT_MENTOR_LEAVES = 'mentor-leave'
 
 
 
