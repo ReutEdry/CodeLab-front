@@ -4,7 +4,7 @@ import { httpService } from './http.service'
 import { utilService } from './util.service'
 
 
-const STORAGE_KEY = 'codeBlockDB'
+const STORAGE_KEY = 'block'
 
 export const codeBlockService = {
     query,
@@ -17,11 +17,11 @@ export const codeBlockService = {
 
 
 async function query() {
-    // return httpService.get(STORAGE_KEY)
+    return httpService.get(STORAGE_KEY)
 }
 
 function getById(codeBlockId) {
-    // return httpService.get(`codeBlock/${codeBlockId}`)
+    return httpService.get(`block/${codeBlockId}`)
 }
 
 

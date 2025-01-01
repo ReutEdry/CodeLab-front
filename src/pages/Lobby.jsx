@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { codeBlockService } from "../services/code-block.service.local"
+import { codeBlockService } from "../services/code-block.service"
 import { CodeBlockList } from "../cmps/CodeBlockList"
 import { svgs } from "../cmps/Svg"
 
@@ -15,6 +15,7 @@ export function Lobby() {
     async function loadCodeBlocks() {
         try {
             const codeBlocks = await codeBlockService.query()
+            // const codeBlocks = await codeBlockService.query()
             setCodeBlocks(codeBlocks)
         } catch (error) {
             console.log('Can not load code blocks', error);

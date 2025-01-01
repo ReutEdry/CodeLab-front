@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
-import { codeBlockService } from "../services/code-block.service.local";
+import { codeBlockService } from "../services/code-block.service";
 import Editor, { loader } from '@monaco-editor/react'
 import { Output } from "../cmps/Output";
 
