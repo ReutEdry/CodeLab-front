@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import { codeBlockService } from "../services/code-block.service";
 import Editor from '@monaco-editor/react'
 import { Output } from "../cmps/Output";
-import { SOCKET_EMIT_LEAVE_BLOCK, SOCKET_EMIT_SET_BLOCK, SOCKET_EVENT_IS_MENTOR, SOCKET_EVENT_MENTOR_LEAVES, SOCKET_EVENT_USERS_COUNT, socketService } from "../services/socket-service";
+import { SOCKET_EMIT_LEAVE_BLOCK, SOCKET_EMIT_SET_BLOCK, SOCKET_EMIT_WRITE_CODE, SOCKET_EMIT_WRITE_OUTPUT, SOCKET_EVENT_ADD_CODE, SOCKET_EVENT_ADD_OUTPUT, SOCKET_EVENT_IS_MENTOR, SOCKET_EVENT_MENTOR_LEAVES, SOCKET_EVENT_USERS_COUNT, socketService } from "../services/socket-service";
 
 export function CodeEditor() {
 
@@ -47,6 +47,14 @@ export function CodeEditor() {
         })
 
         // updated code
+        socketService.on(SOCKET_EVENT_ADD_CODE, value => {
+            setBlockValue(value)
+        })
+
+        // update output
+        socketService.on(SOCKET_EVENT_ADD_OUTPUT, value => {
+            setBlockResult(value)
+        })
 
 
         return () => {
@@ -55,6 +63,8 @@ export function CodeEditor() {
             socketService.off(SOCKET_EVENT_USERS_COUNT)
             socketService.off(SOCKET_EVENT_IS_MENTOR)
             socketService.off(SOCKET_EVENT_MENTOR_LEAVES)
+            socketService.off(SOCKET_EVENT_ADD_CODE)
+            socketService.off(SOCKET_EVENT_ADD_OUTPUT)
 
             socketService.terminate()
         }
@@ -74,6 +84,7 @@ export function CodeEditor() {
 
     function onHandleEditorChange(value) {
         if (isMentor) return
+        socketService.emit(SOCKET_EMIT_WRITE_CODE, value)
         setBlockValue(value)
     }
 
@@ -86,6 +97,7 @@ export function CodeEditor() {
         try {
             setIsLoading(true)
             const result = await codeBlockService.executeCode(blockValue)
+            socketService.emit(SOCKET_EMIT_WRITE_OUTPUT, result)
             setBlockResult(result)
         } catch (error) {
             console.log('Could not execute the code =>', error);
@@ -105,6 +117,7 @@ export function CodeEditor() {
         //     .map(line => line.trimStart())
         //     .join('\n')}\n*/`))
     }
+
 
     if (!block) return <div>loading</div>
     return (
@@ -131,11 +144,12 @@ export function CodeEditor() {
                         width='60vw'
                         fontSize='20px'
                         defaultLanguage="javascript"
-                        onChange={onHandleEditorChange}
-                        value={`/*\n${block.quest
+                        defaultValue={`/*\n${block.quest
                             .split('\n')
                             .map(line => line.trimStart())
                             .join('\n')}\n*/`}
+                        onChange={onHandleEditorChange}
+                        value={blockValue}
                         onMount={onMount}
                         options={{
                             fontSize: 22,
